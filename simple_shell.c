@@ -13,7 +13,7 @@ int main(int ac, char **av)
 	char *newline = "\n";
 
 	*exec_return = 0;
-	while (1 != NULL)
+	while (1)
 	{
 		write(STDOUT FILE_NO, prompt, 2);
 		if (ret == END_OF_FILE || ret == EXIT)
