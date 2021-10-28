@@ -1,22 +1,26 @@
-#include "header.h"
+#include "main.h"
 /**
- *main - main simple shell function
- *@ac : argument count
- *@av : argument vector
- * envp : environment variables
- * Return : int
- */
-
- int main(int ac, char **av, char **envp)
+*main - Write a UNIX command line interpreter
+*@ac: argument count
+*@av: argument vector
+* Return: the last command executed
+*/
+int main(int ac, char **av)
 {
-  {
-	char *lineptr = NULL, **cmds, *fp_res;
-	size_t s = 0;
-	int status = 0, cmd_n = 0;
-	ssize_t n_chars;
+	int return = 0;
+	int *exec_return;
+	char *prompt = "$";
+	char *newline = "\n";
 
-	(void)ac;
-	(void)envp;
-  return (0);
-  }
+	*exec_return = 0;
+	while (1 != NULL)
+	{
+		write(STDOUT FILE_NO, prompt, 2);
+		if (ret == END_OF_FILE || ret == EXIT)
+		{
+			if (ret == END_OF_FILE)
+				write(STDOUT FILE_NO, newline, 1);
+		}
+	}
+	return (exec_return);
 }
