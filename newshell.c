@@ -9,37 +9,19 @@ int main(void)
 	char *str = NULL;
 	size_t SIZE;
 	char *newline = "\n";
-	char *cmd;
-	pid_t pid;
-	char *argv[] = {NULL};
-	char *envp[] = {NULL};
+	ssize_t str_len = 0;
 
-	while (1)
+	while (str_len >= 0)
 	{
-		write(1, prompt, strlen(prompt));
-		if (getline(&str, &SIZE, stdin) == -1)
+		if (isatty(STDIN_FILENO))
+			write(1, prompt, strlen(prompt));
+		str_len = getline(&str, &SIZE, stdin);
+		if (str_len == -1)
 		{
-			if (feof(stdin))
-			{
-				write(1, newline, strlen(newline));
-			}
-			else
-			{
-				perror("Error");
-				exit(0);
-			}
+			if (isatty(STDIN_FILENO))
+				write(1, newline, stdin);
+			break;
 		}
-		cmd = str;
-		pid = fork();
-		if (pid == -1)
-			perror("Error");
-		else if (pid == 0)
-		{
-			if (execve(cmd, argv, envp) == -1)
-				perror("Error");
-		}
-		else
-			wait(NULL);
 	}
 	return (0);
 }
