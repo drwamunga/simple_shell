@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "newshell.h"
 
 /**
  * main - Entry point for shell, handles args to shell

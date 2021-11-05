@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "newshell.h"
 /**
  * shell - Infinite loop that runs shell
  * @ac: Arg count
@@ -24,20 +24,17 @@ void shell(int ac, char **av, char **env)
 		flow = bridge(args[0], args);
 		if (flow == 2)
 		{
-<<<<<<< HEAD
-			if (isatty(STDIN_FILENO))
-				write(1, newline, strlen(newline));
-			break;
-=======
 			filename = args[0];
 			args[0] = find_path(args[0], tmp, er);
 			if (args[0] == er)
 			{
-				args[0] = search_cwd(filename);
+				args[0] = search_cwd(filename, er);
+				if (args[0] == filename)
+					write(1, er, 5);
 			}
->>>>>>> 8b475faf6d249d4c6df71470a29dc6c513658a90
 		}
-		status = execute_prog(args, line, env, flow);
+		if (args[0] != er)
+			status = execute_prog(args, line, env, flow);
 		free(line);
 		free(args);
 	} while (status);
