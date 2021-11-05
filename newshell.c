@@ -19,7 +19,7 @@ int main(void)
 		if (str_len == -1)
 		{
 			if (isatty(STDIN_FILENO))
-				write(1, newline, stdin);
+				write(1, newline, strlen(newline));
 			break;
 		}
 	}
