@@ -1,27 +1,50 @@
-#include "newshell.h"
+#include "shell.h"
 /**
- *main - writes a unix command interpreter
- *Return: value of last executed command
+ * shell - Infinite loop that runs shell
+ * @ac: Arg count
+ * @av: args passed to shell at beginning of prog
+ * @env: Environment
+ * Return: Void
  */
-int main(void)
+void shell(int ac, char **av, char **env)
 {
-	char prompt[] = "#cisfun$ ";
-	char *str = NULL;
-	size_t SIZE;
-	char *newline = "\n";
-	ssize_t str_len = 0;
+	char *line;
+	char **args;
+	int status = 1;
+	char *tmp = NULL;
+	char *er;
+	char *filename;
+	int flow;
 
-	while (str_len >= 0)
-	{
-		if (isatty(STDIN_FILENO))
-			write(1, prompt, strlen(prompt));
-		str_len = getline(&str, &SIZE, stdin);
-		if (str_len == -1)
+	er = "Error";
+	do {
+		prompt();
+		line = _getline();
+		args = split_line(line);
+		flow = bridge(args[0], args);
+		if (flow == 2)
 		{
+<<<<<<< HEAD
 			if (isatty(STDIN_FILENO))
 				write(1, newline, strlen(newline));
 			break;
+=======
+			filename = args[0];
+			args[0] = find_path(args[0], tmp, er);
+			if (args[0] == er)
+			{
+				args[0] = search_cwd(filename);
+			}
+>>>>>>> 8b475faf6d249d4c6df71470a29dc6c513658a90
 		}
-	}
-	return (0);
+		status = execute_prog(args, line, env, flow);
+		free(line);
+		free(args);
+	} while (status);
+	if (!ac)
+		(void)ac;
+	if (!av)
+		(void)av;
+	if (!env)
+		(void)env;
 }
